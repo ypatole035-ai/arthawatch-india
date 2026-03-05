@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ArthaWatch India</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#0f172a;
+color:white;
+margin:0;
+padding:0;
+}
+
+header{
+text-align:center;
+padding:20px;
+font-size:28px;
+font-weight:bold;
+background:#020617;
+border-bottom:1px solid #1e293b;
+}
+
+.subtitle{
+font-size:14px;
+opacity:0.7;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:#020617;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.5);
+}
+
+.card h2{
+margin-top:0;
+font-size:20px;
+border-bottom:1px solid #1e293b;
+padding-bottom:10px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:6px 0;
+}
+
+.price{
+color:#22c55e;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+🇮🇳 ArthaWatch India
+<div class="subtitle">Live Resource & Market Dashboard</div>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Precious Metals</h2>
+<div class="item"><span>Gold</span><span class="price">Loading...</span></div>
+<div class="item"><span>Silver</span><span class="price">Loading...</span></div>
+<div class="item"><span>Platinum</span><span class="price">Loading...</span></div>
+<div class="item"><span>Palladium</span><span class="price">Loading...</span></div>
+</div>
+
+<div class="card">
+<h2>Energy & Fuel</h2>
+<div class="item"><span>Petrol</span><span class="price">Loading...</span></div>
+<div class="item"><span>Diesel</span><span class="price">Loading...</span></div>
+<div class="item"><span>CNG</span><span class="price">Loading...</span></div>
+<div class="item"><span>Crude Oil</span><span class="price" id="oil">Loading...</span></div>
+<div class="item"><span>Natural Gas</span><span class="price">Loading...</span></div>
+<div class="item"><span>Coal</span><span class="price">Loading...</span></div>
+</div>
+
+<div class="card">
+<h2>Currency</h2>
+<div class="item"><span>USD/INR</span><span class="price" id="usd">Loading...</span></div>
+<div class="item"><span>EUR/INR</span><span class="price" id="eur">Loading...</span></div>
+<div class="item"><span>GBP/INR</span><span class="price" id="gbp">Loading...</span></div>
+</div>
+
+<div class="card">
+<h2>Cryptocurrency</h2>
+<div class="item"><span>Bitcoin</span><span class="price" id="btc">Loading...</span></div>
+<div class="item"><span>Ethereum</span><span class="price" id="eth">Loading...</span></div>
+<div class="item"><span>Tether</span><span class="price" id="usdt">Loading...</span></div>
+</div>
+
+<div class="card">
+<h2>Indian Markets</h2>
+<div class="item"><span>NIFTY 50</span><span class="price">Loading...</span></div>
+<div class="item"><span>Sensex</span><span class="price">Loading...</span></div>
+</div>
+
+<div class="card">
+<h2>Global Indicators</h2>
+<div class="item"><span>Dollar Index</span><span class="price">Loading...</span></div>
+<div class="item"><span>Global Gold</span><span class="price">Loading...</span></div>
+<div class="item"><span>Global Oil</span><span class="price">Loading...</span></div>
+</div>
+
+</div>
+
+<script>
+
+async function loadCrypto(){
+
+let res = await fetch(
+"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,tether&vs_currencies=usd"
+);
+
+let data = await res.json();
+
+document.getElementById("btc").innerText = "$" + data.bitcoin.usd;
+document.getElementById("eth").innerText = "$" + data.ethereum.usd;
+document.getElementById("usdt").innerText = "$" + data.tether.usd;
+
+}
+
+loadCrypto();
+
+setInterval(loadCrypto,30000);
+
+</script>
+
+</body>
+</html>
